@@ -1,145 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: darkcyan;
-        }
-        .calculator {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        .display {
-            width: 100%;
-            height: 40px;
-            margin-bottom: 10px;
-            font-size: 20px;
-            text-align: right;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-        }
-        button {
-            padding: 15px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #e0e0e0;
-        }
-        button:hover {
-            background-color: #d0d0d0;
-        }
-        .operator {
-            background-color: #f9a825;
-        }
-        .operator:hover {
-            background-color: #f57f17;
-        }
-        .equals {
-            background-color: #4caf50;
-        }
-        .equals:hover {
-            background-color: #388e3c;
-        }
-        .clear {
-            background-color: #ef5350;
-        }
-        .clear:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unique Scientific Calculator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+   background-image: url('https://img.freepik.com/free-photo/blue-blank-notepad-with-copy-space_23-2148475334.jpg');
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+ .calculator {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    width: 530px; /* increased width */
+    max-width: 90vw; /* responsive for smaller screens */
+  }
+
+  #display {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    text-align: right;
+    font-size: 2.2rem; /* slightly bigger display font */
+    color: black;
+    box-shadow: inset 0 4px 6px rgba(0,0,0,0.2);
+    margin-bottom: 1.2rem;
+  }
+
+  .calc-btn, .operator-btn, .special-btn {
+    border-radius: 1rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 1rem; /* bigger buttons */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+  }
+
+  .calc-btn {
+    background: linear-gradient(145deg, #ff85f7, #ff5fd1);
+    box-shadow: 0 4px 15px rgba(255, 95, 209, 0.5);
+  }
+  .calc-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 95, 209, 0.7);
+  }
+
+  .operator-btn {
+    background: linear-gradient(145deg, #7f5fff, #3d00ff);
+    box-shadow: 0 4px 15px rgba(63, 0, 255, 0.5);
+  }
+  .operator-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(63, 0, 255, 0.7);
+  }
+
+  .special-btn {
+    background: linear-gradient(145deg, #ff3d00, #ff8c42);
+    box-shadow: 0 4px 15px rgba(255, 140, 66, 0.5);
+  }
+  .special-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.7);
+  }
+</style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" class="display" id="display" readonly value="0">
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button onclick="appendToDisplay('(')">(</button>
-            <button onclick="appendToDisplay(')')">)</button>
-            <button class="operator" onclick="appendToDisplay('/')">/</button>
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('*')">×</button>
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button class="operator" onclick="appendToDisplay('-')">-</button>
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            <button class="equals" onclick="calculate()">=</button>
-            <button onclick="backspace()">⌫</button>
-        </div>
+  <div class="calculator">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-black">Scientific Calculator 💡</h1>
+      <div class="flex gap-2">
+        <button class="calc-btn">DEG</button>
+        <button class="calc-btn" id="bg-toggle">☀️</button>
+      </div>
     </div>
-    <script>
-        let display = document.getElementById('display');
+    
+    <input id="display" type="text" value="0" readonly>
 
-        function appendToDisplay(value) {
-            if (display.value === '0' && value !== '.') {
-                display.value = value;
-            } else {
-                display.value += value;
-            }
-        }
+    <!-- Buttons -->
+    <div class="grid grid-cols-5 gap-3 mb-4">
+      <button class="calc-btn" onclick="memory('MC')">MC</button>
+      <button class="calc-btn" onclick="memory('MR')">MR</button>
+      <button class="calc-btn" onclick="memory('M+')">M+</button>
+      <button class="calc-btn" onclick="memory('M-')">M-</button>
+      <button class="calc-btn" onclick="appendValue('Math.PI')">π</button>
 
-        function clearDisplay() {
-            display.value = '0';
-        }
+      <button class="calc-btn" onclick="appendValue('Math.E')">e</button>
+      <button class="calc-btn" onclick="appendValue('(')">(</button>
+      <button class="calc-btn" onclick="appendValue(')')">)</button>
+      <button class="calc-btn" onclick="appendValue('%')">%</button>
+      <button class="calc-btn" onclick="appendValue('!')">n!</button>
 
-        function backspace() {
-            display.value = display.value.slice(0, -1);
-            if (display.value === '') {
-                display.value = '0';
-            }
-        }
+      <button class="calc-btn" onclick="appendValue('Math.sqrt(')">√</button>
+      <button class="calc-btn" onclick="appendValue('**2')">x²</button>
+      <button class="calc-btn" onclick="appendValue('**3')">x³</button>
+      <button class="calc-btn" onclick="appendValue('**')">xʸ</button>
+      <button class="calc-btn" onclick="appendValue('1/')">1/x</button>
 
-        function calculate() {
-            try {
-                display.value = eval(display.value);
-            } catch (error) {
-                display.value = 'Error';
-                setTimeout(clearDisplay, 1000);
-            }
-        }
+      <button class="calc-btn" onclick="appendValue('Math.sin(')">sin</button>
+      <button class="calc-btn" onclick="appendValue('Math.cos(')">cos</button>
+      <button class="calc-btn" onclick="appendValue('Math.tan(')">tan</button>
+      <button class="calc-btn" onclick="appendValue('Math.log(')">ln</button>
+      <button class="calc-btn" onclick="appendValue('Math.log10(')">log</button>
+    </div>
 
-        // Allow keyboard input
-        document.addEventListener('keydown', (event) => {
-            const key = event.key;
-            if (/[0-9]/.test(key)) {
-                appendToDisplay(key);
-            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-                appendToDisplay(key);
-            } else if (key === 'Enter') {
-                calculate();
-            } else if (key === 'Escape') {
-                clearDisplay();
-            } else if (key === 'Backspace') {
-                backspace();
-            } else if (key === '(' || key === ')' || key === '.') {
-                appendToDisplay(key);
-            }
-        });
-    </script>
+    <div class="grid grid-cols-4 gap-3">
+      <button class="special-btn" onclick="clearDisplay()">AC</button>
+      <button class="calc-btn" onclick="clearEntry()">C</button>
+      <button class="calc-btn" onclick="backspace()">⌫</button>
+      <button class="operator-btn" onclick="appendValue('/')">÷</button>
+
+      <button class="calc-btn" onclick="appendValue('7')">7</button>
+      <button class="calc-btn" onclick="appendValue('8')">8</button>
+      <button class="calc-btn" onclick="appendValue('9')">9</button>
+      <button class="operator-btn" onclick="appendValue('*')">×</button>
+
+      <button class="calc-btn" onclick="appendValue('4')">4</button>
+      <button class="calc-btn" onclick="appendValue('5')">5</button>
+      <button class="calc-btn" onclick="appendValue('6')">6</button>
+      <button class="operator-btn" onclick="appendValue('-')">-</button>
+
+      <button class="calc-btn" onclick="appendValue('1')">1</button>
+      <button class="calc-btn" onclick="appendValue('2')">2</button>
+      <button class="calc-btn" onclick="appendValue('3')">3</button>
+      <button class="operator-btn" onclick="appendValue('+')">+</button>
+
+      <button class="calc-btn col-span-2" onclick="appendValue('0')">0</button>
+      <button class="calc-btn" onclick="appendValue('.')">.</button>
+      <button class="operator-btn" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+<script>
+  const display = document.getElementById('display');
+  let memoryValue = 0;
+
+  function appendValue(value) {
+    if(display.value === "0") display.value = "";
+    display.value += value;
+  }
+
+  function clearDisplay() { display.value = "0"; }
+  function clearEntry() { display.value = "0"; }
+  function backspace() { display.value = display.value.slice(0, -1) || "0"; }
+
+  function calculate() {
+    try {
+      let exp = display.value.replace(/!/, '*factorial()');
+      display.value = eval(exp);
+    } catch {
+      display.value = "Error";
+    }
+  }
+
+  function memory(action) {
+    switch(action) {
+      case 'MC': memoryValue = 0; break;
+      case 'MR': display.value = memoryValue; break;
+      case 'M+': memoryValue += parseFloat(display.value); break;
+      case 'M-': memoryValue -= parseFloat(display.value); break;
+    }
+  }
+
+  function factorial(n=1){ return n<=1 ? 1 : n*factorial(n-1); }
+  const bgToggleBtn = document.getElementById('bg-toggle');
+let toggle = false;
+
+const backgrounds = [
+  'https://img.freepik.com/free-photo/blue-blank-notepad-with-copy-space_23-2148475334.jpg',
+  'https://img.freepik.com/free-photo/blue-blank-notepad-with-copy-space_23-2148475334.jpg',
+  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80'
+];
+
+bgToggleBtn.addEventListener('click', () => {
+  toggle = (toggle + 1) % backgrounds.length; // cycle through URLs
+  document.body.style.backgroundImage = `url('${backgrounds[toggle]}')`;
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundAttachment = 'fixed';
+});
+
+</script>
 </body>
 </html>
